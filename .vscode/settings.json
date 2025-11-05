@@ -2,5 +2,5 @@
     "python-envs.defaultEnvManager": "ms-python.python:conda",
     "python-envs.defaultPackageManager": "ms-python.python:conda",
     "python-envs.pythonProjects": [],
-    "python.defaultInterpreterPath": "C:/Users/Dylan/.conda/envs/bookClubButler/python.exe"
+    "python.defaultInterpreterPath": "~/anaconda3/envs/bookClubButler/python.exe"
 }
