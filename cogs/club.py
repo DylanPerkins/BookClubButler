@@ -1,5 +1,5 @@
+import asyncio
 from discord_http import commands, Context
-import time
 
 from utilities.data import CustomClient
 from utilities import strings, permissions
@@ -58,8 +58,8 @@ class CreateSprint(commands.Cog):
         return ctx.response.defer(thinking=True, call_after=call_after, ephemeral=True)
 
 
-def sleep(seconds: float):
-    time.sleep(seconds)
+async def sleep(seconds: float):
+    await asyncio.sleep(seconds)
 
 
 async def setup(bot: CustomClient):
