@@ -2,7 +2,7 @@ from discord_http import commands, Context
 import time
 
 from utilities.data import CustomClient
-from utilities import strings
+from utilities import strings, permissions
 
 
 class CreateSprint(commands.Cog):
@@ -12,6 +12,7 @@ class CreateSprint(commands.Cog):
     server = commands.SubGroup(name="sprint")
 
     @server.command(name="create", description="Create a new sprint")
+    @commands.check(permissions.is_administrator)
     async def create_sprint(self, ctx: Context, name: str, total_chapters: int, split_amount: int):
         """Creates a new sprint with the given parameters."""
 
