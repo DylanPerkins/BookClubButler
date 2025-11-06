@@ -19,11 +19,21 @@ def is_owner(ctx: Context):
 
 
 def is_administrator(ctx: Context):
+    if not ctx.user.guild_permissions.administrator:
+        raise CheckFailed("You do not have administrator permissions.")
+
+    return True
+
+
+def is_capable(ctx: Context):
     """Check if the user has administrator permissions."""
     if isinstance(ctx.channel, discord_http.DMChannel):
         raise CheckFailed("This command cannot be used in DMs.")
 
     if not ctx.user.guild_permissions.administrator:
         raise CheckFailed("You do not have administrator permissions.")
+
+    if str(ctx.user.id) != str(ctx.bot.config.discord_owner_id):
+        raise CheckFailed("You are not the owner of the bot.")
 
     return True
