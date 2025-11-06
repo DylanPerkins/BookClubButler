@@ -12,7 +12,7 @@ class CreateSprint(commands.Cog):
     server = commands.SubGroup(name="sprint")
 
     @server.command(name="create", description="Create a new sprint")
-    @commands.check(permissions.is_administrator)
+    @commands.check(permissions.is_capable)
     async def create_sprint(self, ctx: Context, name: str, total_chapters: int, split_amount: int):
         """Creates a new sprint with the given parameters."""
 
@@ -49,7 +49,7 @@ class CreateSprint(commands.Cog):
 
                 current_chapter = end_chapter + 1
 
-                sleep(0.3)  # To avoid rate limits
+                await sleep(0.5)  # To avoid rate limits
 
             await ctx.edit_original_response(
                 content=f"✅ Sprint {name} created successfully!",
