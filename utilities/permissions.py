@@ -3,11 +3,9 @@ from discord_http import CheckFailed, Context
 import discord_http
 
 
-def can_handle(ctx: "Context", permission: str) -> bool:
-    """Checks if bot has permissions or is in DMs right now"""
-    return isinstance(ctx.channel, discord_http.DMChannel) or getattr(
-        ctx.channel.permissions_for(ctx.guild.me), permission
-    )
+def is_in_dm(ctx: "Context") -> bool:
+    """Checks if the context is in a DM channel."""
+    return isinstance(ctx.channel, discord_http.DMChannel)
 
 
 def is_owner(ctx: Context):
@@ -27,13 +25,16 @@ def is_administrator(ctx: Context):
 
 def is_capable(ctx: Context):
     """Check if the user is capable of using this command."""
+    output = False
+
     if isinstance(ctx.channel, discord_http.DMChannel):
-        raise CheckFailed("This command cannot be used in DMs.")
+        output = False
+    if ctx.user.guild_permissions.administrator:
+        output = True
+    if str(ctx.user.id) == str(ctx.bot.config.discord_owner_id):
+        output = True
 
-    if not ctx.user.guild_permissions.administrator:
-        raise CheckFailed("You do not have administrator permissions.")
+    if not output:
+        raise CheckFailed("You do not have the required permissions to use this command.")
 
-    if str(ctx.user.id) != str(ctx.bot.config.discord_owner_id):
-        raise CheckFailed("You are not the owner of the bot.")
-
-    return True
+    return output
