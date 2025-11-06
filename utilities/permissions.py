@@ -26,7 +26,7 @@ def is_administrator(ctx: Context):
 
 
 def is_capable(ctx: Context):
-    """Check if the user has administrator permissions."""
+    """Check if the user is capable of using this command."""
     if isinstance(ctx.channel, discord_http.DMChannel):
         raise CheckFailed("This command cannot be used in DMs.")
 
