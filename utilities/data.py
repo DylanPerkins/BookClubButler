@@ -6,12 +6,14 @@ from utilities.config import Config
 
 class CustomClient(discord_http.Client):
     def __init__(self, config: Config, *args, **kwargs):
-        # Store the config instance and individual parameters
+        # Keep app config on the subclass and pass client settings to the base class.
         self.config = config
-        self.token = config.discord_token
-        self.application_id = config.discord_application_id
-        self.public_key = config.discord_public_key
-        self.sync = config.discord_sync.lower() == "true"
+
+        kwargs.setdefault("token", config.discord_token)
+        kwargs.setdefault("application_id", config.discord_application_id)
+        kwargs.setdefault("public_key", config.discord_public_key)
+        kwargs.setdefault("sync", config.discord_sync.lower() == "true")
+
         super().__init__(*args, **kwargs)
 
     async def setup_hook(self):
