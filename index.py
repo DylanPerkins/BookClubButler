@@ -9,8 +9,6 @@ print("Logging in...")
 client = CustomClient(
     config=config,
     token=config.discord_token,
-    application_id=config.discord_application_id,
-    public_key=config.discord_public_key,
     sync=config.discord_sync.lower() == "true",
     intents=Intents(1)
 )
