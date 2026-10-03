@@ -9,6 +9,8 @@ class Config:
     """
 
     discord_token: str
+    discord_application_id: str
+    discord_public_key: str
     discord_sync: str
     discord_owner_id: str
     discord_owner_guild_id: str

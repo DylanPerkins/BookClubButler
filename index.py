@@ -9,12 +9,14 @@ print("Logging in...")
 client = CustomClient(
     config=config,
     token=config.discord_token,
+    application_id=config.discord_application_id,
+    public_key=config.discord_public_key,
     sync=config.discord_sync.lower() == "true",
     intents=Intents(1)
 )
 
 # Run bot
 try:
-    client.start()
+    client.start(port=8081)
 except Exception as e:
     print(f"Error when logging in: {e}")
